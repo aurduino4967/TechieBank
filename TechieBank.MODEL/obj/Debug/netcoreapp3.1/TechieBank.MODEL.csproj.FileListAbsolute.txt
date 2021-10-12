@@ -1,0 +1,10 @@
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\bin\Debug\netcoreapp3.1\TechieBank.MODEL.deps.json
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\bin\Debug\netcoreapp3.1\TechieBank.MODEL.dll
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\bin\Debug\netcoreapp3.1\TechieBank.MODEL.pdb
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.csproj.AssemblyReference.cache
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.AssemblyInfoInputs.cache
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.AssemblyInfo.cs
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.csproj.CoreCompileInputs.cache
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.dll
+C:\Users\user\source\repos\TechieBank\TechieBank.MODEL\obj\Debug\netcoreapp3.1\TechieBank.MODEL.pdb
