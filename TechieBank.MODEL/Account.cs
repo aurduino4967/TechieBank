@@ -1,13 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace TechieBank.MODEL
 {
     public class Account                                           //a class which creates objects accounts                     
     {
-        public string name, ph, history;                              //history stores transaction history
+        public string name, ph;                              //history stores transaction history
         private int pin;                                    //stores pin
         private double amount;
-        public Account(string pname, string pph, int ppin, int accountno)      //account constructor
+        public List<Transaction> history = new List<Transaction>();
+        public Account(string pname, string pph, int ppin)      //account constructor
         {
             name = pname;
             ph = pph;

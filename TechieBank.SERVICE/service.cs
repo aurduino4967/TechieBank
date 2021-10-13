@@ -7,7 +7,7 @@ namespace TechieBank.SERVICE
     {
         public static void Print(string msg)
         {
-            Console.WriteLine(msg);
+                    Console.WriteLine(msg);
         }
 
         public static void Create()
@@ -25,18 +25,18 @@ namespace TechieBank.SERVICE
             if (pin != -245)
             {
                 Bank.i += 1;
-                Bank.acnts[Bank.i] = new Account(name, ph, pin, Bank.i);
+                Bank.acnts[Bank.i] = new Account(name, ph, pin);
                 Console.Write("account created succesfully\n your Bank.acntsount number is" + Convert.ToString(Bank.i + 1000));
             }
             else
             {
-                Print("Bank.acntscount can't be created");
+                Print("Bank account can't be created");
             }
 
         }
         public static void Deposit()
         {
-            Print("Enter your Bank.acntscount no");
+            Print("Enter your Bank account no");
             int num = Reader.AccountRead() - 1000;
             if (num <= Bank.i)
             {
@@ -45,23 +45,23 @@ namespace TechieBank.SERVICE
                 if (amt > 0)
                 {
                     Print("\nSuccessfully deposited the money and your current balance is");
-                    Bank.acnts[num].history += "\ndeposited the money   " + Convert.ToString(amt) + "\n";
+                    Bank.acnts[num].history.Add(new Transaction("Done by : self", "Type : Credit", amt));
                     Print(Convert.ToString(Bank.acnts[num].SetAmount(amt, true)));
                 }
                 else
-                    Print("Invalid amount transfer");
+                    Print("Invalid amount");
 
             }
             else
             {
-                Print("Bank.acntscount not present");
+                Print("Bank account not present");
             }
 
         }
 
         public static void Withdraw()
         {
-            Print("Enter your Bank.acntscount no");
+            Print("Enter your Bank account no");
             int num = Reader.AccountRead() - 1000;
             Print("Enter your pin");
             int ppin = Reader.PinRead();
@@ -75,20 +75,20 @@ namespace TechieBank.SERVICE
                     Print("collect your amount");
                     Bank.acnts[num].SetAmount(amt, false);
                     Print("\nSuccessfully withdrawn the money and your current balance is");
-                    Bank.acnts[num].history += "\ndebited the money    " + Convert.ToString(amt) + "\n";
+                    Bank.acnts[num].history.Add(new Transaction("Done by : Self", "Type : Debit", amt));
 
                     Print(Convert.ToString(Bank.acnts[num].GetAmount()));
 
 
                 }
                 else
-                { Print("insufficient balanBank.acntse"); }
+                { Print("insufficient balance"); }
 
 
             }
             else
             {
-                Print("Bank.acntscount not present");
+                Print("Bank account not present");
             }
 
 
@@ -96,13 +96,13 @@ namespace TechieBank.SERVICE
 
         public static void Transfer()
         {
-            Print("Enter your Bank.acntscount no");
+            Print("Enter your Bank account no");
             int num = Reader.AccountRead() - 1000;
             Print("Enter your pin");
             int ppin = Reader.PinRead();
             if (num <= Bank.i && Bank.acnts[num].GetPin() == ppin)
             {
-                Print("Enter the Bank.acntscount no to transfer");
+                Print("Enter the Bank account no to transfer");
                 int acntno = Reader.AccountRead() - 1000;
                 if (acntno <= Bank.i)
                 {
@@ -113,8 +113,8 @@ namespace TechieBank.SERVICE
                     if (Bank.acnts[num].GetAmount() >= amt)
                     {
                         Bank.acnts[acntno].SetAmount(amt, true);
-                        Bank.acnts[num].history += "\nmoney transferred(debited) to   " + Bank.acnts[num].name + "      " + Convert.ToString(amt) + "\n";
-                        Bank.acnts[acntno].history += "\nmoney transferred(credited) by " + Bank.acnts[num].name + "      " + Convert.ToString(amt) + "\n";
+                        Bank.acnts[num].history.Add(new Transaction("Done by : Self", "type : Debit", amt));
+                        Bank.acnts[acntno].history.Add(new Transaction("Done by : "+Bank.acnts[num].name ,"type : Credit",amt));
 
                         Print("\nSuccessfully transferred the money and your current balance is");
                         Print(Convert.ToString(Bank.acnts[num].SetAmount(amt, false)));
@@ -128,7 +128,7 @@ namespace TechieBank.SERVICE
                 }
                 else
                 {
-                    Print("invalid Bank.acntscount");
+                    Print("invalid Bank account");
                 }
             }
             else
@@ -137,22 +137,32 @@ namespace TechieBank.SERVICE
             }
         }
 
+        
+        
+        
+        
+        
         public static void History()
         {
-            Print("Enter your Bank.acntscount no");
+            Print("Enter your Bank account no");
             int num = Reader.AccountRead() - 1000;
             Print("Enter your PIN");
             int ppin = Reader.PinRead();
             if (num <= Bank.i && Bank.acnts[num].GetPin() == ppin)
             {
                 Console.Clear();
-                Console.Write(Bank.acnts[num].history);
-                Print("your current balance is   " + Bank.acnts[num].GetAmount());
+                foreach(Transaction t in Bank.acnts[num].history)
+                {
+                    Print(t.sender + "\t\t" + t.type + "\t\t" + Convert.ToString(t.amount));
+                }
+                Console.ForegroundColor = ConsoleColor.Red;
+                Print("\n\n\n\n\n\t\t\tyour current balance is   " + Bank.acnts[num].GetAmount());
+                Console.ForegroundColor = ConsoleColor.White;
 
             }
             else
             {
-                Print("invalid Bank.acntscount credentials");
+                Print("invalid Bank account credentials");
             }
         }
     }
