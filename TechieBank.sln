@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31702.278
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechieBank.SERVICE", "..\TechieBank.SERVICE\TechieBank.SERVICE.csproj", "{619845B2-FF9A-4B81-B2B7-98BBC18905E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechieBank.SERVICE", "TechieBank.SERVICE\TechieBank.SERVICE.csproj", "{619845B2-FF9A-4B81-B2B7-98BBC18905E9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechieBank.MODEL", "TechieBank.MODEL.csproj", "{DC8873FA-959E-4B8D-8BB0-4AD273DC2494}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechieBank.MODEL", "TechieBank.MODEL\TechieBank.MODEL.csproj", "{DC8873FA-959E-4B8D-8BB0-4AD273DC2494}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechieBank.CLI", "..\TechieBank.CLI\TechieBank.CLI.csproj", "{D3F1A6CC-C312-46AF-AD08-91B0EC251139}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechieBank.CLI", "TechieBank.CLI\TechieBank.CLI.csproj", "{D3F1A6CC-C312-46AF-AD08-91B0EC251139}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
