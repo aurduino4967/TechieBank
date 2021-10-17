@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TechieBank.MODEL;
+using System.Linq;
 
 namespace TechieBank.SERVICE
 {
@@ -10,23 +12,26 @@ namespace TechieBank.SERVICE
         {
             Console.WriteLine(msg);
         }
-        public static int AccountRead()
+        public static Account AccountRead()
         {
-            int num;
+            String id;
+            Print("enter your account id");
             try
             {
-                num = Convert.ToInt32(Console.ReadLine());
-                return num;
+                id = Convert.ToString(Console.ReadLine());
+                Account k=Bank.acnts.FirstOrDefault(o => o.id == id);
+                return k ;
             }
             catch
             {
                 Print("Invalid Account Number");
-                return 999;
+                return null;
             }
         }
         public static int PinRead()
         {
             int pin;
+            Print("create a 4 digit pin");
             try
             {
                 pin = Convert.ToInt32(Console.ReadLine());
@@ -44,7 +49,7 @@ namespace TechieBank.SERVICE
             double amt;
             try
             {
-
+                Print("Enter the amount");
                 amt = Convert.ToDouble(Console.ReadLine());
                 return amt;
             }

@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TechieBank.CLI
 {
-    public enum opt
+    public enum Options
     {
         create = 1,
         deposit,

@@ -6,7 +6,7 @@ namespace TechieBank.MODEL
 {
     public class Bank
     {
-        public static int i = -1;                                //stores the count of accounts
-        public static Account[] acnts = new Account[100];       //array of accounts 
-    }
+
+        public static List<Account> acnts = new List<Account>() ;      //list of accounts 
+    } 
 }
