@@ -3,7 +3,7 @@ using TechieBank.SERVICE;
 
 namespace TechieBank.CLI
 {
-    class Program
+    class Login
     {
         
         public  static void Wait()
@@ -11,20 +11,17 @@ namespace TechieBank.CLI
            Console.ReadKey(true);
         }
    
-        public static void Main()
+        public static void Useropt()
         {
-            Option.Bankdisplay();
+            Console.Clear();
             while (true)
             {
-                Option.ServiceOpt();                                                   //service options
+                DisplayMsgs.ServiceOpt();                                                   //service options
                 Options choice = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
 
                 switch (choice)
                 {
-                    case Options.create:                                              //account creation
-                        Service.Create();
-                        Wait();
-                        break;
+                    
 
                     case Options.deposit:                                          //deposition section
                         Service.Deposit();
@@ -51,8 +48,11 @@ namespace TechieBank.CLI
 
 
                     case Options.exit:                                               //exit section
-                        System.Environment.Exit(0);
+                        MainScreen.Main();
                         break;
+   
+
+
                 }
             }
         }

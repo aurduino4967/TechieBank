@@ -4,12 +4,10 @@ using System.Text;
 
 namespace TechieBank.CLI
 {
-    public enum Options
+    enum MainScreenOpt
     {
-        deposit=1,
-        withdraw,
-        transfer,
-        history,
+        create=1,
+        login,
         exit
     }
 }

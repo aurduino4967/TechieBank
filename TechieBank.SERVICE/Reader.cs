@@ -19,7 +19,7 @@ namespace TechieBank.SERVICE
             try
             {
                 id = Convert.ToString(Console.ReadLine());
-                Account k=Bank.acnts.FirstOrDefault(o => o.id == id);
+                Account k=Bank.acnts.SingleOrDefault(o => o.id == id);
                 return k ;
             }
             catch

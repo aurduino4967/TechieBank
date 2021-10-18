@@ -4,7 +4,7 @@ using System.Text;
 
 namespace TechieBank.CLI
 {
-    class Option
+    class DisplayMsgs
     {
 
             public static void Print(String msg)
@@ -15,12 +15,11 @@ namespace TechieBank.CLI
             {
                 Console.Clear();
                 Print("WELCOME TO TECHIE'S BANK ATM SERVICE\n");
-                Print("\t\t1. CREATE ACCOUNT\n");
-                Print("\t\t2. DEPOSIT \n");
-                Print("\t\t3. WITHDRAW \n");
-                Print("\t\t4. TRANSFER\n");
-                Print("\t\t5. TRANSACTION HISTORY\n");
-                Print("\t\t6. EXIT");
+                Print("\t\t1. DEPOSIT \n");
+                Print("\t\t2. WITHDRAW \n");
+                Print("\t\t3. TRANSFER\n");
+                Print("\t\t4. TRANSACTION HISTORY\n");
+                Print("\t\t5. EXIT");
                 Print("********************************\n\n");
                 Print("ENTER YOUR CHOICE : ");
             }
@@ -32,6 +31,13 @@ namespace TechieBank.CLI
                 Console.ReadKey(true);
                 Console.ForegroundColor = ConsoleColor.White;
             }
+            public static void MainScreenOpt()
+        {
+            Print("WELCOME TO TECHIE'S BANK ATM SERVICE\n");
+            Print("\t\t1. CREATE ACCOUNT\n");
+            Print("\t\t2. login \n");
+            Print("\t\t3. exit \n");
+        }
     }
 }
 

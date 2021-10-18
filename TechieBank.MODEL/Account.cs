@@ -6,7 +6,7 @@ namespace TechieBank.MODEL
     public class Account                                           //a class which creates objects accounts                     
     {
         public string name, ph;                              //history stores transaction history
-        private int pin;                                    //stores pin
+        readonly private int pin;                                    //stores pin
         private double amount;
         public readonly String id;
         public List<Transaction> history = new List<Transaction>();
@@ -17,7 +17,7 @@ namespace TechieBank.MODEL
             pin = ppin;
             amount = 0.0;
             id=name.Substring(0,3).ToUpper()+DateTime.UtcNow.ToString("MMddyyyy");
-            Console.WriteLine(id);
+            Console.WriteLine("\n\nYour account id is : "+id+"\n\n");
         }
         public double SetAmount(double pamount, bool op)               //amount setter  method
         {
