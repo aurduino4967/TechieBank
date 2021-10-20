@@ -3,15 +3,16 @@ using TechieBank.MODEL;
 
 namespace TechieBank.SERVICE
 {
-    public class Service
+    public class AccountService
     {
         public static Account acc;
         public static int pin;
+        
         public static bool AccountValidate()
         {
-            acc = Reader.AccountRead();
-            pin = Reader.PinRead();
-            if (acc != null && acc.GetPin() == pin)
+            acc =Reader.AccountRead();
+            
+            if (acc != null && acc.GetPin() ==  Reader.PinRead())
             {
                 return true;
             }
@@ -28,26 +29,35 @@ namespace TechieBank.SERVICE
 
         public static void Create()
         {
-
-            string name, ph;
-            int pin;
-            Print("enter your name");
-            name = Console.ReadLine();
-            Print("enter your phno:");
-            ph = Console.ReadLine();
-            pin = Reader.PinRead();
-
-            if (pin != -245)
+            Bank CurBank;
+            CurBank = BankService.GetBank();
+            if (CurBank != null)
             {
-                Bank.acnts.Add(new Account(name, ph, pin));
-                Print("account creation successful");
+                string name, ph;
+
+                int pin;
+                Print("enter your name");
+                name = Console.ReadLine();
+                Print("enter your phno:");
+                ph = Console.ReadLine();
+                pin = Reader.PinRead();
+
+                if (pin != -245)
+                {
+                    CurBank.acnts.Add(new Account(CurBank.id,   name, ph, pin));
+                    Print("account creation successful");
+                }
+                else
+                {
+                    Print("CurBank account can't be created");
+                }
             }
             else
             {
-                Print("Bank account can't be created");
+                Print("Bank Not present");
             }
-
         }
+ 
         public static void Deposit()
         {
 
@@ -56,7 +66,7 @@ namespace TechieBank.SERVICE
             if (amt > 0)
             {
                 Print("\nSuccessfully deposited the money and your current balance is");
-                acc.history.Add(new Transaction(acc.id, "Done by : self", "Type : Credit", amt));
+                acc.history.Add(new Transaction(acc.Bank_id+acc.id, "Done by : self", "Type : Credit", amt));
                 Print(Convert.ToString(acc.SetAmount(amt, true)));
             }
             else
@@ -71,17 +81,15 @@ namespace TechieBank.SERVICE
         public static void Withdraw()
         {
 
-
-
-
-            double amt = double.Parse(Console.ReadLine());
+            
+            double amt = Reader.AmountRead();
             if (acc.GetAmount() >= amt)
             {
                 Print("collect your amount");
 
                 acc.SetAmount(amt, false);
                 Print("\nSuccessfully withdrawn the money and your current balance is");
-                acc.history.Add(new Transaction(acc.id, "Done by : Self", "Type : Debit", amt));
+                acc.history.Add(new Transaction(acc.Bank_id+acc.Bank_id+acc.id, "Done by : Self", "Type : Debit", amt));
                 Print(Convert.ToString(acc.GetAmount()));
 
 
@@ -96,19 +104,17 @@ namespace TechieBank.SERVICE
         {
 
 
-            Print("Enter the Bank account no to transfer");
+            Print("DETAILS OF DEBITOR OR RECEIVER");
             Account receiver = Reader.AccountRead();
             if (receiver != null)
             {
-
-                double amt = double.Parse(Console.ReadLine());
+                double amt = Reader.AmountRead();
 
                 if (acc.GetAmount() >= amt)
                 {
                     receiver.SetAmount(amt, true);
-                    acc.history.Add(new Transaction(acc.id, "Done by : Self", "type : Debit", amt));
-                    receiver.history.Add(new Transaction(acc.id, "Done by : " + acc.name, "type : Credit", amt));
-
+                    acc.history.Add(new Transaction(acc.Bank_id+acc.id, "Done by : Self", "type : Debit", amt));
+                    receiver.history.Add(new Transaction(acc.Bank_id + acc.id, "Done by : " + acc.name, "type : Credit", amt));
                     Print("\nSuccessfully transferred the money and your current balance is");
                     Print(Convert.ToString(acc.SetAmount(amt, false)));
 
@@ -118,9 +124,8 @@ namespace TechieBank.SERVICE
                 { Print("insufficient balance"); }
             }
             else
-            { Print("invalid Bank account"); }
+            { Print("invalid CurBank account"); }
         }
-
 
 
 

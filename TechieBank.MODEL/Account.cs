@@ -8,12 +8,14 @@ namespace TechieBank.MODEL
         public string name, ph;                              //history stores transaction history
         readonly private int pin;                                    //stores pin
         private double amount;
+        public readonly String Bank_id;
         public readonly String id;
         public List<Transaction> history = new List<Transaction>();
-        public Account(string pname, string pph, int ppin)      //account constructor
+        public Account(String B_id, string pname, string pph, int ppin)      //account constructor
         {
             name = pname;
             ph = pph;
+            Bank_id = B_id;
             pin = ppin;
             amount = 0.0;
             id=name.Substring(0,3).ToUpper()+DateTime.UtcNow.ToString("MMddyyyy");

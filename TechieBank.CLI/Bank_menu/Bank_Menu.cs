@@ -4,13 +4,13 @@ using System.Text;
 using TechieBank.SERVICE;
 namespace TechieBank.CLI
 {
-    class MainScreen
+    class Bank_Menu
     {
         public static void Wait()
         { Console.ReadKey(true); }
-        public static void Main()
+        public static void BankMenuDisplay()
         {
-            DisplayMsgs.Bankdisplay();
+            Console.Clear();
             while(true)
             { 
             Console.Clear();
@@ -22,12 +22,12 @@ namespace TechieBank.CLI
 
 
                 case MainScreenOpt.create:
-                    Service.Create();
+                    AccountService.Create();
                     Wait();
                     break;
 
                 case MainScreenOpt.login:
-                        if (Service.AccountValidate())
+                        if ( AccountService.AccountValidate())
                         {
                             Login.Useropt();
                             Wait();
@@ -37,7 +37,7 @@ namespace TechieBank.CLI
 
 
                 case MainScreenOpt.exit:
-                    System.Environment.Exit(0);
+                        Application_Menu.Main();
                     break;
 
 

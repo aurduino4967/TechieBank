@@ -24,31 +24,31 @@ namespace TechieBank.CLI
                     
 
                     case Options.deposit:                                          //deposition section
-                        Service.Deposit();
+                        AccountService.Deposit();
                         Wait();
                         break;
 
                     case Options.withdraw:                                          //withdraw section
-                        Service.Withdraw();
+                        AccountService.Withdraw();
                         Wait();
 
                         break;
 
 
                     case Options.transfer:                                           //transfer section
-                        Service.Transfer();
+                        AccountService.Transfer();
                         Wait();
                         break;
 
 
                     case Options.history:                                            //transaction history section
-                        Service.History();
+                        AccountService.History();
                         Wait();
                         break;
 
 
                     case Options.exit:                                               //exit section
-                        MainScreen.Main();
+                        Bank_Menu.BankMenuDisplay();
                         break;
    
 

@@ -14,19 +14,26 @@ namespace TechieBank.SERVICE
         }
         public static Account AccountRead()
         {
-            String id;
-            Print("enter your account id");
-            try
+            Bank CurBank;
+            CurBank = BankService.GetBank();
+            if (CurBank!=null)
             {
-                id = Convert.ToString(Console.ReadLine());
-                Account k=Bank.acnts.SingleOrDefault(o => o.id == id);
-                return k ;
+                String id;
+                Print("enter your account id");
+                try
+                {
+                    id = Convert.ToString(Console.ReadLine());
+                    Account k = CurBank.acnts.SingleOrDefault(o => o.id == id);
+                    return k;
+                }
+                catch
+                {
+                    Print("Invalid Account Number");
+                    return null;
+                }
             }
-            catch
-            {
-                Print("Invalid Account Number");
+            else
                 return null;
-            }
         }
         public static int PinRead()
         {
@@ -59,6 +66,13 @@ namespace TechieBank.SERVICE
                 return -1.0;
 
             }
+
+        }
+        public static String BankRead()
+        {
+            Print("Enter Bank_id");
+            String Bank_id = Convert.ToString(Console.ReadLine());
+            return Bank_id;
 
         }
     }
