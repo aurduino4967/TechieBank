@@ -4,10 +4,11 @@ using System.Text;
 
 namespace TechieBank.CLI
 {
-    enum BankServiceOpt
+    enum ApplicationMenuOpt
     {
-        Create=1,
-        Goto,
+        CreateBank=1,
+        BankStaff,
+        LoginToAccount,
         exit
     }
 }

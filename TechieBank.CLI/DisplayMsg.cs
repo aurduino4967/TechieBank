@@ -10,7 +10,7 @@ namespace TechieBank.CLI
             {
                 Console.WriteLine(msg);
             }
-            public static void ServiceOpt()
+            public static void AccountHolderMenu()
             {
                 Console.Clear();
                 Print("\t\t1. DEPOSIT \n");
@@ -22,17 +22,18 @@ namespace TechieBank.CLI
                 Print("ENTER YOUR CHOICE : ");
             }
             
-            public static void MainScreenOpt()
+            public static void BankStaffMenu()
         {
             Print("\t\t1. CREATE ACCOUNT\n");
-            Print("\t\t2. login \n");
+            Print("\t\t2. Delete \n");
             Print("\t\t3. exit \n");
         }
-        public static void BankService()
+        public static void ApplicationMenu()
         {
-            Print("\t\t1. CREATE BANK\n");
-            Print("\t\t2. Accounts and Service \n");
-            Print("\t\t3. exit \n");
+            Print("\t\t1. CreateBank\n");
+            Print("\t\t2. BankStaff\n");
+            Print("\t\t3. LoginToAccount \n");
+            Print("\t\t4. exit \n");
         }
 
     }

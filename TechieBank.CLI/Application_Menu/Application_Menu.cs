@@ -11,32 +11,42 @@ namespace TechieBank.CLI
         { Console.ReadKey(true); }
         public static void Main()
         {
-            Console.Clear();
-            DisplayMsgs.BankService();
+           
             while (true)
             {
                 Console.Clear();
-                DisplayMsgs.BankService();
-                BankServiceOpt choice = (BankServiceOpt)Enum.Parse(typeof(BankServiceOpt), Console.ReadLine());
+                DisplayMsgs.ApplicationMenu();
+                ApplicationMenuOpt choice = (ApplicationMenuOpt)Enum.Parse(typeof(ApplicationMenuOpt), Console.ReadLine());
 
                 switch (choice)
                 {
 
 
-                    case BankServiceOpt.Create:
+                    case ApplicationMenuOpt.CreateBank:
                         BankService.Create();
                         Wait();
                         break;
 
-                    case BankServiceOpt.Goto:
-                            Bank_Menu.BankMenuDisplay();
-                            Login.Useropt();
-                            Wait();
+                    case ApplicationMenuOpt.BankStaff:
+                        if(BankStaffService.ValidateStaff())
+                        {
+                            BankStaffMenu.BankStaffMenuDisplay();
+                        }
+                     
+                         
+                        break;
 
+                    case ApplicationMenuOpt.LoginToAccount:
+                        if (AccountService.AccountValidate())
+                        {
+                            AccountHolder_Menu.Display();
+     
+                        }
+                        Wait();
                         break;
 
 
-                    case BankServiceOpt.exit:
+                    case ApplicationMenuOpt.exit:
                         System.Environment.Exit(0);
                         break;
 

@@ -4,10 +4,10 @@ using System.Text;
 
 namespace TechieBank.CLI
 {
-    enum MainScreenOpt
-    {
-        create=1,
-        login,
+    public enum BankStaffOpt
+        {
+        CreateAccount=1,
+        DeleteAccount,
         exit
     }
 }

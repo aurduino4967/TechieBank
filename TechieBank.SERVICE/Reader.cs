@@ -12,14 +12,16 @@ namespace TechieBank.SERVICE
         {
             Console.WriteLine(msg);
         }
-        public static Account AccountRead()
+        public static Account AccountRead(Bank CurBank=null)
         {
-            Bank CurBank;
-            CurBank = BankService.GetBank();
+            if (CurBank == null)
+            {
+                CurBank = BankService.GetBank();
+            }
             if (CurBank!=null)
             {
                 String id;
-                Print("enter your account id");
+                Print("enter  account id");
                 try
                 {
                     id = Convert.ToString(Console.ReadLine());
@@ -28,7 +30,7 @@ namespace TechieBank.SERVICE
                 }
                 catch
                 {
-                    Print("Invalid Account Number");
+                    Print("Invalid Account ID");
                     return null;
                 }
             }
@@ -75,5 +77,6 @@ namespace TechieBank.SERVICE
             return Bank_id;
 
         }
+        
     }
 }

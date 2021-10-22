@@ -3,7 +3,7 @@ using TechieBank.SERVICE;
 
 namespace TechieBank.CLI
 {
-    class Login
+    class AccountHolder_Menu
     {
         
         public  static void Wait()
@@ -11,12 +11,12 @@ namespace TechieBank.CLI
            Console.ReadKey(true);
         }
    
-        public static void Useropt()
+        public static void Display()
         {
             Console.Clear();
             while (true)
             {
-                DisplayMsgs.ServiceOpt();                                                   //service options
+                DisplayMsgs.AccountHolderMenu();                                                   //service options
                 Options choice = (Options)Enum.Parse(typeof(Options), Console.ReadLine());
 
                 switch (choice)
@@ -48,7 +48,7 @@ namespace TechieBank.CLI
 
 
                     case Options.exit:                                               //exit section
-                        Bank_Menu.BankMenuDisplay();
+                        Application_Menu.Main();
                         break;
    
 

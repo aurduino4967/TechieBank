@@ -25,57 +25,17 @@ namespace TechieBank.SERVICE
 
         public static void Print(string msg)
         { Console.WriteLine(msg); }
-
-
-        public static void Create()
-        {
-            Bank CurBank;
-            CurBank = BankService.GetBank();
-            if (CurBank != null)
-            {
-                string name, ph;
-
-                int pin;
-                Print("enter your name");
-                name = Console.ReadLine();
-                Print("enter your phno:");
-                ph = Console.ReadLine();
-                pin = Reader.PinRead();
-
-                if (pin != -245)
-                {
-                    CurBank.acnts.Add(new Account(CurBank.id,   name, ph, pin));
-                    Print("account creation successful");
-                }
-                else
-                {
-                    Print("CurBank account can't be created");
-                }
-            }
-            else
-            {
-                Print("Bank Not present");
-            }
-        }
- 
         public static void Deposit()
         {
-
-
             double amt = Reader.AmountRead();
-            if (amt > 0)
-            {
-                Print("\nSuccessfully deposited the money and your current balance is");
-                acc.history.Add(new Transaction(acc.Bank_id+acc.id, "Done by : self", "Type : Credit", amt));
-                Print(Convert.ToString(acc.SetAmount(amt, true)));
-            }
-            else
-                Print("Invalid amount");
-
-
+            acc.SetAmount(amt, true);
+            Print("\nSuccessfully withdrawn the money and your current balance is");
+            acc.history.Add(new Transaction(acc.Bank_id + acc.Bank_id + acc.id, "Done by : Self", "Type : Credit", amt));
+            Print(Convert.ToString(acc.GetAmount()));
 
         }
 
+        
 
 
         public static void Withdraw()
@@ -124,7 +84,7 @@ namespace TechieBank.SERVICE
                 { Print("insufficient balance"); }
             }
             else
-            { Print("invalid CurBank account"); }
+            { Print("invalid  account"); }
         }
 
 

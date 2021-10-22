@@ -18,8 +18,7 @@ namespace TechieBank.MODEL
             Bank_id = B_id;
             pin = ppin;
             amount = 0.0;
-            id=name.Substring(0,3).ToUpper()+DateTime.UtcNow.ToString("MMddyyyy");
-            Console.WriteLine("\n\nYour account id is : "+id+"\n\n");
+            id = name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy");
         }
         public double SetAmount(double pamount, bool op)               //amount setter  method
         {

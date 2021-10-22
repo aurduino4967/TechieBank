@@ -16,3 +16,4 @@ C:\Users\user\source\repos\TechieBank\TechieBank.CLI\bin\Debug\netcoreapp3.1\Tec
 C:\Users\user\source\repos\TechieBank\TechieBank.CLI\obj\Debug\netcoreapp3.1\TechieBank.CLI.dll
 C:\Users\user\source\repos\TechieBank\TechieBank.CLI\obj\Debug\netcoreapp3.1\TechieBank.CLI.pdb
 C:\Users\user\source\repos\TechieBank\TechieBank.CLI\obj\Debug\netcoreapp3.1\TechieBank.CLI.genruntimeconfig.cache
+C:\Users\user\source\repos\TechieBank\TechieBank.CLI\obj\Debug\netcoreapp3.1\TechieBank.CLI.csproj.CopyComplete
