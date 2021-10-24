@@ -28,6 +28,7 @@ namespace TechieBank.CLI
                         break;
 
                     case ApplicationMenuOpt.BankStaff:
+                      
                         if(BankStaffService.ValidateStaff())
                         {
                             BankStaffMenu.BankStaffMenuDisplay();

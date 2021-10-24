@@ -29,6 +29,22 @@ namespace TechieBank.CLI
                         Wait();
                         break;
 
+                    case BankStaffOpt.ChangeTransferRates:
+                        BankStaffService.ChangeTransferRates();
+                        Wait();
+                        break;
+
+
+                    case BankStaffOpt.ChangeCurrency:
+                        BankStaffService.ChangeCurrency();
+                        Wait();
+                        break;
+
+                    case BankStaffOpt.RevertTransaction:
+                        BankStaffService.RevertTransaction();
+                        Wait();
+                        break;
+
 
                     case BankStaffOpt.exit:
                         Application_Menu.Main();

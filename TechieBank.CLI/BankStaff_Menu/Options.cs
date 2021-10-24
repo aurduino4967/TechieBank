@@ -8,6 +8,9 @@ namespace TechieBank.CLI
         {
         CreateAccount=1,
         DeleteAccount,
+        ChangeTransferRates,
+        ChangeCurrency,
+        RevertTransaction,
         exit
     }
 }

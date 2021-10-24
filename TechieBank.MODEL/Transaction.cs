@@ -14,7 +14,7 @@ namespace TechieBank.MODEL
         {
             id = "TXN" + bankplusacc_id+ DateTime.UtcNow.ToString("MMddyyyy");
             type = typ;
-            sender = bankplusacc_id.Substring(11,11);
+            sender = Sder;
             amount = amt;
 
         }

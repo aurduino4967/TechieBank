@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TechieBank.MODEL;
+using System.Linq;
 
 namespace TechieBank.SERVICE
 {
@@ -11,6 +12,18 @@ namespace TechieBank.SERVICE
         public static void Print(String msg)
         { Console.WriteLine(msg); }
 
+        public static void ChangeTransferRates()
+        {
+            Print("Want to change the rates for \n1.same bank  \n2.different bank");
+            int t = Convert.ToInt16(Console.ReadLine());
+            if (t==1)
+            { SameBank_ChangeTransferRates(); }
+            else if(t==2)
+            { DiffBank_ChangeTransferRates(); }
+            else
+            { Print("invalid option selection"); }
+            
+        }
         public static  bool ValidateStaff()
         {
             current = BankService.GetBank();
@@ -25,6 +38,55 @@ namespace TechieBank.SERVICE
             Print("INVALID BANK ID ");
             Console.ReadKey(true);
             return false;    
+        }
+        public static void ChangeCurrency()
+        {
+            Print("Enter the currency");
+            current.currency = Console.ReadLine();
+            
+        }
+        public static void SameBank_ChangeTransferRates()
+        {
+            Print("Enter the charges for RTGS transfer");
+            current.RTGS["SAME"] = Convert.ToDouble(Console.ReadLine());
+            Print("Enter the charges for IMPS transfer");
+            current.IMPS["SAME"] = Convert.ToDouble(Console.ReadLine());
+
+             
+        }
+        public static void DiffBank_ChangeTransferRates()
+        {
+            Print("Enter the charges for RTGS transfer");
+            current.RTGS["SAME"] = Convert.ToDouble(Console.ReadLine());
+            Print("Enter the charges for IMPS transfer");
+            current.IMPS["SAME"] = Convert.ToDouble(Console.ReadLine());
+
+        }
+        public static void RevertTransaction()
+        {
+            Print("Enter the details of the debitor");
+            Account acc = Reader.AccountRead(current);
+            Print("Enter Transaction Id");
+            Transaction t = acc.history.SingleOrDefault(o => o.id == Console.ReadLine());
+            if (t!=null)
+            {
+                acc.SetAmount(t.amount, false);
+                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(10, 11));
+                if (sender != null)
+                {
+                    sender.SetAmount(t.amount, true);
+                    Print("transaction reverted");
+                }
+                else
+                {
+                    Print("invlaid Bank Account");
+                }
+            }
+            else
+            {
+                Print("Transaction id can't be found");
+            }
+
         }
         public static void Create()
         {
@@ -41,13 +103,14 @@ namespace TechieBank.SERVICE
                     Account created = new Account(current.id, name, ph, pin);
                     current.acnts.Add(created);
                     Print("account creation successful");
-                }
+				    Print("Account id is : " + created.id);
+				    Print("Passcode is : " + Convert.ToString(created.GetPin()));
+            }
                 else
                 {
                     Print("Bank account can't be created due to incorrect credentials");
                 }
-            
-    
+
         }
 
         public static void Delete()

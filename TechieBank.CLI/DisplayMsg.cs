@@ -24,9 +24,13 @@ namespace TechieBank.CLI
             
             public static void BankStaffMenu()
         {
-            Print("\t\t1. CREATE ACCOUNT\n");
-            Print("\t\t2. Delete \n");
-            Print("\t\t3. exit \n");
+            Print("\t\t1. Create Account\n");
+            Print("\t\t2. Delete Account\n");
+            Print("\t\t3. ChangeTransferRates\n");
+            Print("\t\t4. ChangeCurrency\n");
+            Print("\t\t5. RevertTransaction\n"); 
+            Print("\t\t6. exit \n");
+            Print("\n\nChoose your option\n");
         }
         public static void ApplicationMenu()
         {

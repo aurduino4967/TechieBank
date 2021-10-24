@@ -14,8 +14,9 @@ namespace TechieBank.SERVICE
         {
             Print("Enter Bank name");
             String name = Convert.ToString(Console.ReadLine());
-            Banks.Add(new Bank(name));
-            Print("Bank created successfully");
+            Bank k = new Bank(name);
+            Banks.Add(k);
+            Print("Bank created successfully"+"and Bank_id is :  "+ k.id);
         }
         public static Bank GetBank()
         {
