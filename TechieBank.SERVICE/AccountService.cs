@@ -76,10 +76,10 @@ namespace TechieBank.SERVICE
                 {
                     Print("enter the mode of Transfer   \n1.RTGS (or) \n2.IMPS\n");
                     Bank k = BankService.Banks.SingleOrDefault(o => o.id == acc.Bank_id);
-                    temp = Console.ReadLine() == "RTGS" ?  amt * (k.RTGS[eqornoteq])/100 : amt * (k.IMPS[eqornoteq])/100;
+                    temp = Convert.ToInt16(Console.ReadLine()) == 1 ?  amt * (k.RTGS[eqornoteq])/100 : amt * (k.IMPS[eqornoteq])/100;
                     receiver.SetAmount(amt-temp, true);
                     acc.history.Add(new Transaction(acc.Bank_id+acc.id, "Done by : Self", "type : Debit", amt));
-                    receiver.history.Add(new Transaction(acc.Bank_id + acc.id, "Done by : " + acc.id, "type : Credit", amt));
+                    receiver.history.Add(new Transaction(acc.Bank_id + acc.id, "Done by : " + acc.id, "type : Credit", amt-temp));
                     Print("\nSuccessfully transferred the money and your current balance is");
                     Print(Convert.ToString(acc.SetAmount(amt, false)));
 

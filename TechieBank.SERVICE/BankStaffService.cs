@@ -64,23 +64,31 @@ namespace TechieBank.SERVICE
         }
         public static void RevertTransaction()
         {
-            Print("Enter the details of the debitor");
+            Print("Enter the details of the creditor");
             Account acc = Reader.AccountRead(current);
             Print("Enter Transaction Id");
-            Transaction t = acc.history.SingleOrDefault(o => o.id == Console.ReadLine());
+            String temp = Console.ReadLine();
+            Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
             if (t!=null)
             {
-                acc.SetAmount(t.amount, false);
-                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(10, 11));
+                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(10,11));
                 if (sender != null)
                 {
+                    acc.SetAmount(t.amount, false);
                     sender.SetAmount(t.amount, true);
+                    sender.history.Remove(t);
+                    acc.history.Remove(t);
                     Print("transaction reverted");
+
+
                 }
                 else
                 {
-                    Print("invlaid Bank Account");
+                    Print("transaction can't be reverted becaus creditors account is invalid");
                 }
+
+                
+
             }
             else
             {

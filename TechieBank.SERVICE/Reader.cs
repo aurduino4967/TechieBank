@@ -42,8 +42,10 @@ namespace TechieBank.SERVICE
             int pin;
             Print("create a 4 digit pin");
             try
-            {
+            {   
                 pin = Convert.ToInt32(Console.ReadLine());
+                if (pin < 1000 && pin > 10000)
+                    throw new Exception();
                 return pin;
             }
             catch
