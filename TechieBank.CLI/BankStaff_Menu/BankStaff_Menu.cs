@@ -44,7 +44,10 @@ namespace TechieBank.CLI
                         BankStaffService.RevertTransaction();
                         Wait();
                         break;
-
+                    case BankStaffOpt.AccountTransaction:
+                        BankStaffService.History();
+                        Wait();
+                        break;
 
                     case BankStaffOpt.exit:
                         Application_Menu.Main();

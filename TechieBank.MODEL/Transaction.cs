@@ -10,10 +10,12 @@ namespace TechieBank.MODEL
         public String type,sender;
         public double amount;
         public readonly String id;
-        public Transaction(String bankplusacc_id,String Sder, String typ, double amt)
+        public readonly String statement;
+        public Transaction(String bankplusacc_id,String Sder, String state,String typ, double amt)
         {
             id = "TXN" + bankplusacc_id+ DateTime.UtcNow.ToString("MMddyyyy");
             type = typ;
+            statement=state;
             sender = Sder;
             amount = amt;
 

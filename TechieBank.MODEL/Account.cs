@@ -10,6 +10,7 @@ namespace TechieBank.MODEL
         private double amount;
         public readonly String Bank_id;
         public readonly String id;
+        public int tid = 0;
         public List<Transaction> history = new List<Transaction>();
         public Account(String B_id, string pname, string pph, int ppin)      //account constructor
         {

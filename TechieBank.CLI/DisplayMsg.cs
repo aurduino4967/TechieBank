@@ -28,8 +28,9 @@ namespace TechieBank.CLI
             Print("\t\t2. Delete Account\n");
             Print("\t\t3. ChangeTransferRates\n");
             Print("\t\t4. ChangeCurrency\n");
-            Print("\t\t5. RevertTransaction\n"); 
-            Print("\t\t6. exit \n");
+            Print("\t\t5. RevertTransaction\n");
+            Print("\t\t6. AccountTransaction History\n");
+            Print("\t\t7. exit \n");
             Print("\n\nChoose your option\n");
         }
         public static void ApplicationMenu()

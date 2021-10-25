@@ -11,6 +11,7 @@ namespace TechieBank.CLI
         ChangeTransferRates,
         ChangeCurrency,
         RevertTransaction,
+        AccountTransaction,
         exit
     }
 }

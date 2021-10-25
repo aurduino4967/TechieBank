@@ -14,7 +14,9 @@ namespace TechieBank.SERVICE
         {
             Print("Enter Bank name");
             String name = Convert.ToString(Console.ReadLine());
-            Bank k = new Bank(name);
+            Print("Enter IFSC CODE");
+            String ifsc= Convert.ToString(Console.ReadLine()); 
+            Bank k = new Bank(name,ifsc);
             Banks.Add(k);
             Print("Bank created successfully"+"and Bank_id is :  "+ k.id);
         }

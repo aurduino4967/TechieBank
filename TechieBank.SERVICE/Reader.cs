@@ -44,7 +44,7 @@ namespace TechieBank.SERVICE
             try
             {   
                 pin = Convert.ToInt32(Console.ReadLine());
-                if (pin < 1000 && pin > 10000)
+                if (pin < 1000 || pin > 10000)
                     throw new Exception();
                 return pin;
             }

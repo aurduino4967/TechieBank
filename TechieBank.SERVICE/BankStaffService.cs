@@ -54,6 +54,25 @@ namespace TechieBank.SERVICE
 
              
         }
+        public static void History()
+        {
+
+            Account acc = Reader.AccountRead(current);
+            Console.Clear();
+            if (acc != null)
+            {
+                foreach (Transaction t in acc.history)
+                {
+                    Print("TRANSACTION ID : " + t.id + "\t" + t.sender + "\t" + t.type + t.statement + "  amount : " + Convert.ToString(t.amount));
+                }
+
+                Console.ForegroundColor = ConsoleColor.Red;
+                Print("\n\n\n\n\n\t\t\tyour current balance is   " + acc.GetAmount());
+                Console.ForegroundColor = ConsoleColor.White;
+
+            }
+            else { Print("account credentials invalid"); }
+        }
         public static void DiffBank_ChangeTransferRates()
         {
             Print("Enter the charges for RTGS transfer");
@@ -67,11 +86,11 @@ namespace TechieBank.SERVICE
             Print("Enter the details of the creditor");
             Account acc = Reader.AccountRead(current);
             Print("Enter Transaction Id");
-            String temp = Console.ReadLine();
+            String temp = Convert.ToString(Console.ReadLine());
             Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
             if (t!=null)
             {
-                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(10,11));
+                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(17,11));
                 if (sender != null)
                 {
                     acc.SetAmount(t.amount, false);
