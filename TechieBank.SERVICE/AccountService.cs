@@ -66,7 +66,7 @@ namespace TechieBank.SERVICE
                 return "beneficiary account not present";
             if (acc.GetAmount() < amt || amt <=0 )
                 return "balance insufficiency";
-            if (t != 1 || t != 2)
+            if (t != 1 && t != 2)
                 return "invalid mode of transfer";
                 string eqornoteq = acc.Bank_id == debitor.Bank_id ? "SAME" : "DIFF";
                  double temp;
@@ -78,7 +78,6 @@ namespace TechieBank.SERVICE
                     acc.SetAmount(amt, false);
                     acc.history.Add(new Transaction(acc.Bank_id + acc.id + acc.tid, "Done by : Self  ", "transferred to : " + debitor.id, "type : Debit", amt));
                     debitor.history.Add(new Transaction(acc.Bank_id + acc.id + acc.tid, "transferred by : " + acc.id, "\tmode of transfer : " + mode + "charges incurred: " + Convert.ToString(temp), "type : Credit", amt - temp));
-
                     acc.tid += 1;
 
 

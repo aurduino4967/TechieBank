@@ -6,16 +6,13 @@ using System.Linq;
 
 namespace TechieBank.CLI
 {
-    public class Reader
+    class Reader : Application_Menu
     {
-        public static void Print(String msg)
-        {
-            Console.WriteLine(msg);
-        }
+      
         public static String  AccountRead()
         {
             Print("enter account id");
-            String accid = Convert.ToString(Console.ReadLine());
+            String accid = ReadString();
             return accid;
             
         }
@@ -25,7 +22,7 @@ namespace TechieBank.CLI
             Print("create a 4 digit pin");
             try
             {   
-                pin = Convert.ToInt32(Console.ReadLine());
+                pin = ReadInt();
                 if (pin < 1000 || pin > 10000)
                     throw new Exception();
                 return pin;
@@ -43,7 +40,7 @@ namespace TechieBank.CLI
             try
             {
                 Print("Enter the amount");
-                amt = Convert.ToDouble(Console.ReadLine());
+                amt = ReadDouble();
                 return amt;
             }
             catch
@@ -57,7 +54,7 @@ namespace TechieBank.CLI
         public static String BankRead()
         {
             Print("Enter Bank_id");
-            String Bank_id = Convert.ToString(Console.ReadLine());
+            String Bank_id = ReadString();
             return Bank_id;
 
         }
