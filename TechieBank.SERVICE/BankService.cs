@@ -3,28 +3,26 @@ using System.Collections.Generic;
 using System.Text;
 using TechieBank.MODEL;
 using System.Linq;
+using System.Text.RegularExpressions;
 namespace TechieBank.SERVICE
+
 {
     public class BankService
     {
-        public static void Print(String msg)
-        { Console.WriteLine(msg); }
-        public static List<Bank> Banks = new List<Bank>();
-        public static void Create()
+        
+        public  List<Bank> Banks = new List<Bank>();
+        public String Create(String name, String ifsc)
         {
-            Print("Enter Bank name");
-            String name = Convert.ToString(Console.ReadLine());
-            Print("Enter IFSC CODE");
-            String ifsc= Convert.ToString(Console.ReadLine()); 
-            Bank k = new Bank(name,ifsc);
-            Banks.Add(k);
-            Print("Bank created successfully"+"and Bank_id is :  "+ k.id);
+            if (name.Length < 3 || !(Regex.IsMatch(name, @"^[a-zA-Z]+$")))
+                return "invalid bank credentials";
+            Bank created = new Bank(name, ifsc);
+            Banks.Add(created);
+            return created.id;
         }
-        public static Bank GetBank()
+        public Bank GetBank(String Bank_id)
         {
-            String Bank_id = Reader.BankRead();
-            return  BankService.Banks.SingleOrDefault(o => o.id == Bank_id);
-
+            return  Banks.SingleOrDefault(o => o.id == Bank_id);
+            
         }
 
 

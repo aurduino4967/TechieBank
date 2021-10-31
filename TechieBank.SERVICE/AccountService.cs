@@ -1,118 +1,107 @@
 ﻿using System;
 using TechieBank.MODEL;
 using System.Linq;
+using System.Collections.Generic;
+
 
 namespace TechieBank.SERVICE
 {
     public class AccountService
     {
-        public static Account acc;
-        public static int pin;
-        
-        public static bool AccountValidate()
+        public Bank CurBank;
+        public  Account acc;
+        public  int pin;
+       
+        public  bool AccountValidate(BankService bank_service,String bankid,String acc_id,int pin)
         {
-            acc =Reader.AccountRead();
+            CurBank = bank_service.Banks.SingleOrDefault(o => o.id == bankid);
             
-            if (acc != null && acc.GetPin() ==  Reader.PinRead())
+            
+            if (CurBank!=null)
             {
-                return true;
+                
+                acc = CurBank.acnts.SingleOrDefault(o => o.id == acc_id);
+                if (acc != null && acc.GetPin() == pin)
+                    return true;
+                else
+                    return false;
             }
             else
             {
-                Print("invalid account credentials account not present");
-                Console.ReadKey(true);
-                return false; }
+                return false;
+            }
         }
-
-        public static void Print(string msg)
-        { Console.WriteLine(msg); }
-        public static void Deposit()
+        public  String Deposit(double amt)
         {
-            double amt = Reader.AmountRead();
+
+            if (amt <= 0)
+                return "invalid amount";
             acc.SetAmount(amt, true);
-            Print("\nSuccessfully withdrawn the money and your current balance is");
             acc.history.Add(new Transaction(acc.Bank_id + acc.id+acc.tid, "Done by : Self","deposited", "Type : Credit", amt));
             acc.tid += 1;
-            Print(Convert.ToString(acc.GetAmount()));
+            return "successfull";
+            
 
         }
 
         
 
 
-        public static void Withdraw()
+        public  String Withdraw(double amt)
         {
-
+            if (acc.GetAmount() < amt)
+                return "insufficient balance";
             
-            double amt = Reader.AmountRead();
-            if (acc.GetAmount() >= amt)
-            {
-                Print("collect your amount");
-
-                acc.SetAmount(amt, false);
-                Print("\nSuccessfully withdrawn the money and your current balance is");
+                acc.SetAmount(amt, false);    
                 acc.history.Add(new Transaction(acc.Bank_id+acc.id+acc.tid, "Done by : Self","Withdrawn", "Type : Debit", amt));
                 acc.tid += 1;
-                Print(Convert.ToString(acc.GetAmount()));
-            }
-            else
-            { Print("insufficient balance"); }
+            return "Collect your amount";
         }
 
-
-
-        public static void Transfer()
+        public String Transfer(BankService bank_service, String bankid, String debitorid, double amt,int t)
         {
-
+            Bank debitors = bank_service.Banks.SingleOrDefault(o => o.id == bankid);
+            Account debitor = debitors.acnts.SingleOrDefault(o => o.id == debitorid);
+            if (debitor == null  )
+                return "beneficiary account not present";
+            if (acc.GetAmount() < amt || amt <=0 )
+                return "balance insufficiency";
+            if (t != 1 || t != 2)
+                return "invalid mode of transfer";
+                string eqornoteq = acc.Bank_id == debitor.Bank_id ? "SAME" : "DIFF";
+                 double temp;
             
-            Print("DETAILS OF DEBITOR OR RECEIVER");
-            Account receiver = Reader.AccountRead();
-            if (receiver != null)
-            {
-                string eqornoteq = acc.Bank_id == receiver.Bank_id ? "SAME" : "DIFF";
-                double temp,amt = Reader.AmountRead();
+                    Bank k = bank_service.Banks.SingleOrDefault(o => o.id == acc.Bank_id);
+                    string mode = t == 1 ? "RTGS" : "IMPS";
+                    temp = t == 1 ? amt * (k.RTGS[eqornoteq]) / 100 : amt * (k.IMPS[eqornoteq]) / 100;
+                    debitor.SetAmount(amt - temp, true);
+                    acc.SetAmount(amt, false);
+                    acc.history.Add(new Transaction(acc.Bank_id + acc.id + acc.tid, "Done by : Self  ", "transferred to : " + debitor.id, "type : Debit", amt));
+                    debitor.history.Add(new Transaction(acc.Bank_id + acc.id + acc.tid, "transferred by : " + acc.id, "\tmode of transfer : " + mode + "charges incurred: " + Convert.ToString(temp), "type : Credit", amt - temp));
 
-                if (acc.GetAmount() >= amt)
-                {
-                    Print("enter the mode of Transfer   \n1.RTGS (or) \n2.IMPS\n");
-                    Bank k = BankService.Banks.SingleOrDefault(o => o.id == acc.Bank_id);
-                    int t = Convert.ToInt16(Console.ReadLine());
-                    string mode= t == 1 ? "RTGS" : "IMPS";
-                    temp =  t== 1 ?  amt * (k.RTGS[eqornoteq])/100 : amt * (k.IMPS[eqornoteq])/100;
-                    receiver.SetAmount(amt-temp, true);
-                    acc.history.Add(new Transaction(acc.Bank_id+acc.id+acc.tid, "Done by : Self  ","transferred to : "+receiver.id, "type : Debit", amt));
-                    receiver.history.Add(new Transaction(acc.Bank_id+acc.id+acc.tid, "transferred by : " + acc.id,"\tmode of transfer : "+mode+"charges incurred: "+Convert.ToString(temp), "type : Credit", amt-temp));
-                    Print("\nSuccessfully transferred the money and your current balance is");
                     acc.tid += 1;
-                    Print(Convert.ToString(acc.SetAmount(amt, false)));
 
 
-                }
-                else
-                { Print("insufficient balance"); }
-            }
-            else
-            { Print("invalid  account"); }
+            return "done successfull";
         }
 
 
 
 
 
-        public static void History()
+        public List<String> History()
         {
+            
 
-
-            Console.Clear();
+            List<String> transactions = new List<string>();
 
             foreach (Transaction t in acc.history)
             {
-                Print("TRANSACTION ID : " + t.id + "\t\t" + t.sender + "\t\t" + t.type + "\t\t"+t.statement+" amount : "+ Convert.ToString(t.amount));
+                transactions.Add(t.id + " " + t.sender + " " + t.statement + " " + Convert.ToString(t.amount));
             }
+            transactions.Add("\n\nyour balance is \t :  " + Convert.ToString(acc.GetAmount()));
 
-            Console.ForegroundColor = ConsoleColor.Red;
-            Print("\n\n\n\n\n\t\t\tyour current balance is   " + acc.GetAmount());
-            Console.ForegroundColor = ConsoleColor.White;
+            return transactions;
 
         }
     }

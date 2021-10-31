@@ -4,7 +4,7 @@ using System.Text;
 using TechieBank.MODEL;
 using System.Linq;
 
-namespace TechieBank.SERVICE
+namespace TechieBank.CLI
 {
     public class Reader
     {
@@ -12,30 +12,12 @@ namespace TechieBank.SERVICE
         {
             Console.WriteLine(msg);
         }
-        public static Account AccountRead(Bank CurBank=null)
+        public static String  AccountRead()
         {
-            if (CurBank == null)
-            {
-                CurBank = BankService.GetBank();
-            }
-            if (CurBank!=null)
-            {
-                String id;
-                Print("enter  account id");
-                try
-                {
-                    id = Convert.ToString(Console.ReadLine());
-                    Account k = CurBank.acnts.SingleOrDefault(o => o.id == id);
-                    return k;
-                }
-                catch
-                {
-                    Print("Invalid Account ID");
-                    return null;
-                }
-            }
-            else
-                return null;
+            Print("enter account id");
+            String accid = Convert.ToString(Console.ReadLine());
+            return accid;
+            
         }
         public static int PinRead()
         {
@@ -67,7 +49,7 @@ namespace TechieBank.SERVICE
             catch
             {
                 Print("Enter valid amount");
-                return -1.0;
+                return 0.0;
 
             }
 

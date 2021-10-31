@@ -40,6 +40,12 @@ namespace TechieBank.CLI
             Print("\t\t3. LoginToAccount \n");
             Print("\t\t4. exit \n");
         }
+        public static void HistoryPrint(List<String> transactions)
+        {
+            foreach (String i in transactions)
+                Print(i);
+
+        }
 
     }
 }

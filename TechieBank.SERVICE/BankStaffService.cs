@@ -3,148 +3,111 @@ using System.Collections.Generic;
 using System.Text;
 using TechieBank.MODEL;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace TechieBank.SERVICE
 {
     public class BankStaffService
     {
-        public static Bank current;
-        public static void Print(String msg)
-        { Console.WriteLine(msg); }
-
-        public static void ChangeTransferRates()
+        public Bank current;
+    
+        public String ChangeTransferRates(int t,double one,double two)
         {
-            Print("Want to change the rates for \n1.same bank  \n2.different bank");
-            int t = Convert.ToInt16(Console.ReadLine());
+            
             if (t==1)
-            { SameBank_ChangeTransferRates(); }
+            { SameBank_ChangeTransferRates(one,two); }
             else if(t==2)
-            { DiffBank_ChangeTransferRates(); }
+            { DiffBank_ChangeTransferRates(one,two); }
             else
-            { Print("invalid option selection"); }
+            { return "invalid option";  }
+            return "successfull";
             
         }
-        public static  bool ValidateStaff()
+        public  bool ValidateStaff(BankService obj,String bank_id,String passcode)
         {
-            current = BankService.GetBank();
-            if (current != null)
+            current = obj.GetBank(bank_id);
+            if (current != null && current.StaffPassCode == passcode)
             {
-                Print("Enter Bank Staff PassCode");
-                String passcode = Console.ReadLine();
-                if (current.StaffPassCode == passcode)
-                    return true;    
-
+                    return true;
             }
-            Print("INVALID BANK ID ");
-            Console.ReadKey(true);
             return false;    
         }
-        public static void ChangeCurrency()
+        public  void ChangeCurrency(String cur)
         {
-            Print("Enter the currency");
-            current.currency = Console.ReadLine();
-            
+            current.currency = cur;   
         }
-        public static void SameBank_ChangeTransferRates()
+        public  void SameBank_ChangeTransferRates(double one,double two)
         {
-            Print("Enter the charges for RTGS transfer");
-            current.RTGS["SAME"] = Convert.ToDouble(Console.ReadLine());
-            Print("Enter the charges for IMPS transfer");
-            current.IMPS["SAME"] = Convert.ToDouble(Console.ReadLine());
-
-             
+            current.RTGS["SAME"] = one;   
+            current.IMPS["SAME"] = two;
         }
-        public static void History()
+        public List<String> History(String accid)
         {
+            Account acc = current.acnts.SingleOrDefault(o => o.id == accid);
+            List<String> transactions = new List<string>();
 
-            Account acc = Reader.AccountRead(current);
-            Console.Clear();
-            if (acc != null)
+            foreach (Transaction t in acc.history)
             {
-                foreach (Transaction t in acc.history)
-                {
-                    Print("TRANSACTION ID : " + t.id + "\t" + t.sender + "\t" + t.type + t.statement + "  amount : " + Convert.ToString(t.amount));
-                }
-
-                Console.ForegroundColor = ConsoleColor.Red;
-                Print("\n\n\n\n\n\t\t\tyour current balance is   " + acc.GetAmount());
-                Console.ForegroundColor = ConsoleColor.White;
-
+                transactions.Add(t.id + " " + t.sender + " " + t.statement + " " + Convert.ToString(t.amount));
             }
-            else { Print("account credentials invalid"); }
-        }
-        public static void DiffBank_ChangeTransferRates()
-        {
-            Print("Enter the charges for RTGS transfer");
-            current.RTGS["SAME"] = Convert.ToDouble(Console.ReadLine());
-            Print("Enter the charges for IMPS transfer");
-            current.IMPS["SAME"] = Convert.ToDouble(Console.ReadLine());
+            transactions.Add("\n\nyour balance is \t :  " + Convert.ToString(acc.GetAmount()));
+            return transactions;
 
         }
-        public static void RevertTransaction()
+        public  void DiffBank_ChangeTransferRates(double one,double two)
         {
-            Print("Enter the details of the creditor");
-            Account acc = Reader.AccountRead(current);
-            Print("Enter Transaction Id");
-            String temp = Convert.ToString(Console.ReadLine());
-            Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
-            if (t!=null)
+            current.RTGS["SAME"] = one;
+            current.IMPS["SAME"] = two;
+        }
+        public String RevertTransaction(BankService bank_service,String accid, String temp)
+        {
+            Bank dbank = bank_service.Banks.SingleOrDefault(o=>o.id==temp.Substring(3, 11));
+            if (dbank != null)
             {
-                Account sender = current.acnts.SingleOrDefault(o => o.id == t.sender.Substring(17,11));
-                if (sender != null)
+                Account acc = current.acnts.SingleOrDefault(o => o.id == accid);
+                Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
+                if (acc != null && t != null)
                 {
-                    acc.SetAmount(t.amount, false);
-                    sender.SetAmount(t.amount, true);
-                    sender.history.Remove(t);
-                    acc.history.Remove(t);
-                    Print("transaction reverted");
+                    Account sender = dbank.acnts.SingleOrDefault(o => o.id == t.sender.Substring(17, 11));
+                    if (sender != null)
+                    {
+                        acc.SetAmount(t.amount, false);
+                        sender.SetAmount(t.amount, true);
+                        t = sender.history.SingleOrDefault(o => o.id == temp);
+                        sender.history.Remove(t);
+                        t = acc.history.SingleOrDefault(o => o.id == temp);
+                        acc.history.Remove(t);
+                        return "Transaction reverted successfully";
+
+                    }
+                    else
+                    { return "sender account not present"; }
 
 
                 }
-                else
-                {
-                    Print("transaction can't be reverted becaus creditors account is invalid");
-                }
+                else { return "account not present"; }
+            }
+            return "invalid transaction id";
+        }
+        public  String  Create(String name,String ph,int pin)
+        {
+      
+                if (pin<1000 || pin>=10000 || ph.Length!=10 || !(Regex.IsMatch(ph, @"^[0-9]+$")) || !(Regex.IsMatch(name, @"^[a-zA-Z]+$")) || name.Length<3)
+                    return "Account not created due to invalid credential format";
 
+                Account created = new Account(current.id, name, ph, pin);
+                current.acnts.Add(created);
+                return "account created successfully \n account id is\t"+created.id+"\npasscode is\t"+Convert.ToString(created.GetPin());
                 
-
-            }
-            else
-            {
-                Print("Transaction id can't be found");
-            }
-
-        }
-        public static void Create()
-        {
-                string name, ph;
-                int pin;
-                Print("enter your name");
-                name = Console.ReadLine();
-                Print("enter your phno:");
-                ph  = Console.ReadLine();
-                pin = Reader.PinRead();
-
-                if (pin != -245)
-                {
-                    Account created = new Account(current.id, name, ph, pin);
-                    current.acnts.Add(created);
-                    Print("account creation successful");
-				    Print("Account id is : " + created.id);
-				    Print("Passcode is : " + Convert.ToString(created.GetPin()));
-            }
-                else
-                {
-                    Print("Bank account can't be created due to incorrect credentials");
-                }
+            
 
         }
 
-        public static void Delete()
+        public String Delete(String accid)
         {
-            Account acc = Reader.AccountRead(current);
+            Account acc = current.acnts.SingleOrDefault(o => o.id == accid);
             current.acnts.Remove(acc);
-            Print("Account Deleted Successfully");
+            return "account deletionn successfull";
         }
     }
 }
