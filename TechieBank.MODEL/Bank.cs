@@ -21,8 +21,8 @@ namespace TechieBank.MODEL
             IMPS["SAME"] = 5;
             IMPS["DIFF"] = 6;
             IFSC = ifs;
-            id = name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy");
-            StaffPassCode='@'+name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy");
+            id = name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy")+ DateTime.UtcNow.ToString("HHmmss");
+            StaffPassCode='@'+id;
             acnts = new List<Account>();      //list of accounts
             this.name = name;
             

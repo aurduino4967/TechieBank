@@ -19,7 +19,7 @@ namespace TechieBank.MODEL
             Bank_id = B_id;
             pin = ppin;
             amount = 0.0;
-            id = name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy");
+            id = name.Substring(0, 3).ToUpper() + DateTime.UtcNow.ToString("MMddyyyy")+DateTime.UtcNow.ToString("HHmmss");
         }
         public double SetAmount(double pamount, bool op)               //amount setter  method
         {

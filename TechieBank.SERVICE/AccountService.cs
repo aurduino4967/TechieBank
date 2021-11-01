@@ -96,7 +96,7 @@ namespace TechieBank.SERVICE
 
             foreach (Transaction t in acc.history)
             {
-                transactions.Add(t.id + " " + t.sender + " " + t.statement + " " + Convert.ToString(t.amount));
+                transactions.Add(t.id + " " + t.sender + " " + t.statement + "\t" +"amount : "+ Convert.ToString(t.amount));
             }
             transactions.Add("\n\nyour balance is \t :  " + Convert.ToString(acc.GetAmount()));
 

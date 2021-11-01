@@ -15,13 +15,16 @@ namespace TechieBank.SERVICE
         {
             
             if (t==1)
-            { SameBank_ChangeTransferRates(one,two); }
+            { SameBank_ChangeTransferRates(one,two);
+                return "The transfer rates for SameBank are\n1.RTGS=" + Convert.ToString(current.RTGS["SAME"]) + "\n" + "2.IMPS=" + Convert.ToString(current.IMPS["SAME"]);
+            }
             else if(t==2)
-            { DiffBank_ChangeTransferRates(one,two); }
+            { DiffBank_ChangeTransferRates(one,two);
+                return "The transfer rates for SameBank are\n1.RTGS=" + Convert.ToString(current.RTGS["DIFF"]) + "\n" + "2.IMPS=" + Convert.ToString(current.IMPS["DIFF"]);
+            }
             else
             { return "invalid option";  }
-            return "successfull";
-            
+                        
         }
         public  bool ValidateStaff(BankService obj,String bank_id,String passcode)
         {
@@ -32,9 +35,11 @@ namespace TechieBank.SERVICE
             }
             return false;    
         }
-        public  void ChangeCurrency(String cur)
+        public  String ChangeCurrency(String cur)
         {
-            current.currency = cur;   
+            current.currency = cur;
+            return "The currency has been changed to : " + current.currency;
+            
         }
         public  void SameBank_ChangeTransferRates(double one,double two)
         {
@@ -48,7 +53,7 @@ namespace TechieBank.SERVICE
 
             foreach (Transaction t in acc.history)
             {
-                transactions.Add(t.id + " " + t.sender + " " + t.statement + " " + Convert.ToString(t.amount));
+                transactions.Add(t.id + " " + t.sender + " " + t.statement + "\t" + "amount : " + Convert.ToString(t.amount));
             }
             transactions.Add("\n\nyour balance is \t :  " + Convert.ToString(acc.GetAmount()));
             return transactions;
@@ -58,17 +63,18 @@ namespace TechieBank.SERVICE
         {
             current.RTGS["SAME"] = one;
             current.IMPS["SAME"] = two;
+            
         }
         public String RevertTransaction(BankService bank_service,String accid, String temp)
         {
-            Bank dbank = bank_service.Banks.SingleOrDefault(o=>o.id==temp.Substring(3, 11));
+            Bank dbank = bank_service.Banks.SingleOrDefault(o=>o.id==temp.Substring(3, 17));
             if (dbank != null)
             {
                 Account acc = current.acnts.SingleOrDefault(o => o.id == accid);
                 Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
                 if (acc != null && t != null)
                 {
-                    Account sender = dbank.acnts.SingleOrDefault(o => o.id == t.sender.Substring(17, 11));
+                    Account sender = dbank.acnts.SingleOrDefault(o => o.id == t.sender.Substring(23, 17));
                     if (sender != null)
                     {
                         acc.SetAmount(t.amount, false);

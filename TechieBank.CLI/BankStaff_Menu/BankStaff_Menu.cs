@@ -52,7 +52,7 @@ namespace TechieBank.CLI
 
                         case BankStaffOpt.ChangeCurrency:
                             String currency = ReadString();
-                            bank_staff_service.ChangeCurrency(currency);
+                            Print(bank_staff_service.ChangeCurrency(currency));
                             Wait();
                             break;
 
@@ -64,6 +64,7 @@ namespace TechieBank.CLI
                             Print(bank_staff_service.RevertTransaction(bank_service, accid, t));
                             Wait();
                             break;
+
                         case BankStaffOpt.AccountTransaction:
                             DisplayMsgs.HistoryPrint(bank_staff_service.History(Reader.AccountRead()));
                             Wait();
