@@ -68,14 +68,14 @@ namespace TechieBank.SERVICE
         public String RevertTransaction(BankService bank_service,String accid, String temp)
         {
             Bank dbank = bank_service.Banks.SingleOrDefault(o=>o.id==temp.Substring(3, 17));
-            if (dbank != null)
+            if (dbank != null )
             {
                 Account acc = current.acnts.SingleOrDefault(o => o.id == accid);
                 Transaction t = acc.history.SingleOrDefault(o => o.id == temp);
-                if (acc != null && t != null)
+                if (acc != null &&  t != null)
                 {
                     Account sender = dbank.acnts.SingleOrDefault(o => o.id == t.sender.Substring(23, 17));
-                    if (sender != null)
+                    if (sender != null && acc!=sender)
                     {
                         acc.SetAmount(t.amount, false);
                         sender.SetAmount(t.amount, true);

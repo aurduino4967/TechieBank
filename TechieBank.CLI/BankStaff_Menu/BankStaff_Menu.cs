@@ -7,7 +7,7 @@ namespace TechieBank.CLI
     class BankStaffMenu : Application_Menu
     {
   
-        public static void BankStaffMenuDisplay()
+        public static void Display()
         {
             Console.Clear();
             try
@@ -82,7 +82,7 @@ namespace TechieBank.CLI
             {
                 Print("invalid");
                 Wait();
-                BankStaffMenuDisplay();
+                Display();
             }
         }
     }

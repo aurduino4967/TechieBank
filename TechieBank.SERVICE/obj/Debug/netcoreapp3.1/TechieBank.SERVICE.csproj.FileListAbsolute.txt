@@ -10,4 +10,3 @@ C:\Users\user\source\repos\TechieBank\TechieBank.SERVICE\bin\Debug\netcoreapp3.1
 C:\Users\user\source\repos\TechieBank\TechieBank.SERVICE\obj\Debug\netcoreapp3.1\TechieBank.SERVICE.csproj.AssemblyReference.cache
 C:\Users\user\source\repos\TechieBank\TechieBank.SERVICE\obj\Debug\netcoreapp3.1\TechieBank.SERVICE.dll
 C:\Users\user\source\repos\TechieBank\TechieBank.SERVICE\obj\Debug\netcoreapp3.1\TechieBank.SERVICE.pdb
-C:\Users\user\source\repos\TechieBank\TechieBank.SERVICE\obj\Debug\netcoreapp3.1\TechieBank.SERVICE.csproj.CopyComplete

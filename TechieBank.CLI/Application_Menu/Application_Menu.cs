@@ -56,7 +56,7 @@ namespace TechieBank.CLI
                             String staff_code = ReadString();
                             if (bank_staff_service.ValidateStaff(bank_service, bank_id, staff_code))
                             {
-                                BankStaffMenu.BankStaffMenuDisplay();
+                                BankStaffMenu.Display();
                             }
                             else
                             { Print("Inalid Credentials\n"); }
